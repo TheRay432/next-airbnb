@@ -152,12 +152,12 @@ Carousel.displayName = "Carousel"
 
 const CarouselContent = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+  React.HTMLAttributes<HTMLDivElement> & { isRounded?: boolean }
+>(({ className, isRounded = false, ...props }, ref) => {
   const { carouselRef, orientation } = useCarousel()
 
   return (
-    <div ref={carouselRef} className="overflow-hidden">
+    <div ref={carouselRef} className={cn('overflow-hidden', isRounded ? 'rounded-md' : '')}>
       <div
         ref={ref}
         className={cn(
@@ -194,10 +194,14 @@ const CarouselItem = React.forwardRef<
 })
 CarouselItem.displayName = "CarouselItem"
 
+type CarouselButtonProps = React.ComponentProps<typeof Button> & {
+  isAbsolute?: boolean;
+}
+
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
-  React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+  CarouselButtonProps
+>(({ className, variant = "outline", size = "icon", isAbsolute = false, ...props }, ref) => {
   const { scrollPrev, canScrollPrev } = useCarousel()
 
   return (
@@ -207,6 +211,7 @@ const CarouselPrevious = React.forwardRef<
       size={size}
       className={cn(
         "h-8 w-8 rounded-full shrink-0",
+        isAbsolute && 'absolute top-1/2 left-0 transform -translate-y-1/2',
         className
       )}
       disabled={!canScrollPrev}
@@ -222,8 +227,8 @@ CarouselPrevious.displayName = "CarouselPrevious"
 
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
-  React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+  CarouselButtonProps
+>(({ className, variant = "outline", size = "icon", isAbsolute = false, ...props }, ref) => {
   const { scrollNext, canScrollNext } = useCarousel()
 
   return (
@@ -233,6 +238,7 @@ const CarouselNext = React.forwardRef<
       size={size}
       className={cn(
         "h-8 w-8 rounded-full shrink-0",
+        isAbsolute && 'absolute top-1/2 right-0 transform -translate-y-1/2',
         className
       )}
       disabled={!canScrollNext}

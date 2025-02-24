@@ -19,6 +19,8 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        tab: "rounded-full text-xs border border-input bg-background shadow-sm",
+        moreBtn: "bg-moreBtn text-white"
       },
       size: {
         default: "h-9 px-4 py-2",
@@ -26,6 +28,7 @@ const buttonVariants = cva(
         lg: "h-10 rounded-md px-8",
         icon: "w-9 h-9",
         iconLogin: "h-fit w-fit px-4 py-2",
+        tab: 'px-3 py-1 h-fit'
       },
     },
     defaultVariants: {

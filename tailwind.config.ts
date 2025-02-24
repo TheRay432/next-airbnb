@@ -51,8 +51,8 @@ const config: Config = {
   				'4': '#e8c468',
   				'5': '#f4a462'
   			},
-			heart: "rgba(0, 0, 0, 0.5)"
-			
+			moreBtn: '#222222',
+			footer: '#F7F7F7'
   		},
   		borderRadius: {
   			lg: '0.5rem',
@@ -64,6 +64,12 @@ const config: Config = {
 		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [function({ addUtilities }) {
+	addUtilities({
+		'.scrollbar-none': {
+			'scrollbar-width': 'none',
+		},
+	})
+  },require("tailwindcss-animate")],
 };
 export default config;
