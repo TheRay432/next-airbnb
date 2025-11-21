@@ -1,4 +1,5 @@
 'use client';
+import BaseCotainer from '@/components/Custom/BaseCotainer/BaseCotainer';
 import {
   Carousel,
   CarouselContent,
@@ -34,27 +35,29 @@ const ProductTab = () => {
   }, []);
 
   return (
-    <div className="w-full py-4">
-      <div className="w-full">
-        <Carousel opts={{ slidesToScroll: scrollSlides }}>
-          <CarouselPrevious className="hidden md:inline-flex" />
-          <CarouselContent>
-            {Array.from({ length: 55 }).map((_, index) => (
-              <CarouselItem
-                key={index}
-                className="basis-1/4 sm:basis-1/6 lg:basis-7/100 text-gray-700"
-              >
-                <div className="flex flex-col items-center  gap-2">
-                  <User size={20} />
-                  <p className="text-xs">著名城市{index + 1}</p>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselNext className="hidden md:inline-flex" />
-        </Carousel>
+    <BaseCotainer>
+      <div className="w-full py-4">
+        <div className="w-full">
+          <Carousel opts={{ slidesToScroll: scrollSlides }}>
+            <CarouselPrevious className="hidden md:inline-flex" />
+            <CarouselContent>
+              {Array.from({ length: 55 }).map((_, index) => (
+                <CarouselItem
+                  key={index}
+                  className="basis-1/4 sm:basis-1/6 lg:basis-7/100 text-gray-700"
+                >
+                  <div className="flex flex-col items-center  gap-2">
+                    <User size={20} />
+                    <p className="text-xs">著名城市{index + 1}</p>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselNext className="hidden md:inline-flex" />
+          </Carousel>
+        </div>
       </div>
-    </div>
+    </BaseCotainer>
   );
 };
 

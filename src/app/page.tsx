@@ -3,22 +3,19 @@ import { Suspense } from 'react';
 import RPictureCardSkeleton from '@/components/Custom/RPictureCardSkeleton/RPictureCardSkeleton';
 import Navbar from './components/Navbar/Navbar';
 import ProductTab from './components/ProductTab/ProductTab';
-import BaseCotainer from '@/components/Custom/BaseCotainer/BaseCotainer';
-import Footer from "./components/Footer/Footer";
+import Footer from './components/Footer/Footer';
 
 export default function Home() {
   return (
     <>
-      <BaseCotainer>
+      <div className="sticky top-0 bg-white z-10 shadow-md">
         <Navbar />
-      </BaseCotainer>
-      <div className="w-full h-[1px] bg-gray-200"></div>
-      <BaseCotainer>
+        <div className="w-full h-[1px] bg-gray-200"></div>
         <ProductTab />
-        <Suspense fallback={<RPictureCardSkeleton />}>
-          <PictureList />
-        </Suspense>
-      </BaseCotainer>
+      </div>
+      <Suspense fallback={<RPictureCardSkeleton />}>
+        <PictureList />
+      </Suspense>
       <Footer />
     </>
   );

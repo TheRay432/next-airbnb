@@ -35,7 +35,7 @@ const PictureContainer = ({ pictures }: PictureContainerProps) => {
   }, [morePicturesData]);
 
   const renderMorePictures = (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-x-5 gap-y-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-x-5 gap-y-10 my-4">
       {morePicturesData.map((morePicture, index) => (
         <div key={morePicture.id + index} className={cn('w-full')}>
           <RPictureCard picture={morePicture} isHaveTab={index % 2 === 0} />
@@ -66,8 +66,8 @@ const PictureContainer = ({ pictures }: PictureContainerProps) => {
           dataLength={morePicturesData.length}
           next={fetchMoreData}
           hasMore={hasMore}
-          loader={<RPictureCardSkeleton />}
-          scrollThreshold={0.75}
+          loader={<RPictureCardSkeleton isNoContainer />}
+          scrollThreshold={0.65}
           endMessage={<h4 className="text-center mt-10">沒有更多資料了</h4>}
         >
           {renderMorePictures}

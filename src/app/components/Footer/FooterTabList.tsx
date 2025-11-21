@@ -22,8 +22,8 @@ const FooterTabList = ({
   tabSubMenu,
 }: FooterTabListProps) => {
   const [showAll, setShowAll] = React.useState(false);
-  const displayLimit = 17; //最多顯示18筆資料
-  const displayedItems = showAll ? tabSubMenu : tabSubMenu.slice(0, displayLimit);
+  const displayLimit = 18; //最多顯示18筆資料
+  const displayedItems = showAll ? tabSubMenu : tabSubMenu.slice(0, (displayLimit-1));
   const hasMore = tabSubMenu.length > displayLimit;
 
   return (

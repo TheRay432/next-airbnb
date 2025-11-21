@@ -27,7 +27,6 @@ export interface RPictureCardProps {
   isHaveTab?: boolean;
 }
 const RPictureCard = ({ picture, isHaveTab = false }: RPictureCardProps) => {
-  const [isLoading, setIsLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
   const [showCarouselBtn, setShowCarouselBtn] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -59,20 +58,17 @@ const RPictureCard = ({ picture, isHaveTab = false }: RPictureCardProps) => {
       >
         <CardHeader className="px-0">
           <CardTitle className="relative">
-            <div className={cn('w-full', isLoading ? 'bg-gray-400' : '')}>
+            <div className="w-full">
               <Carousel className="w-full" setApi={setApi} opts={{duration: 20}}>
                 <CarouselContent isRounded>
-                  {mockImgList.map((item, index, arr) => (
+                  {mockImgList.map((item, index) => (
                     <CarouselItem key={index}>
                       <Image
-                        className={cn('rounded-md w-full h-full')}
+                        className={cn('w-full h-full aspect-[27/26]')}
                         src={item}
                         alt="test"
                         width={300}
                         height={300}
-                        onLoad={() =>
-                          index === arr.length - 1 && setIsLoading(false)
-                        }
                       />
                     </CarouselItem>
                   ))}
