@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Minus, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import React, { useState } from 'react';
+import React from 'react';
 import { PeopleList, PeopleObj } from "./PeopleModal";
 
 interface PeopleAddItemProps {
@@ -12,14 +12,12 @@ interface PeopleAddItemProps {
 }
 
 const PeopleAddItem = ({ peopleListitem, className, peopleObj, setPeopleObj }: PeopleAddItemProps) => {
-  const [count, setCount] = useState(0);
+  const count = peopleObj[peopleListitem.type];
 
   const handleCount = (selectType: 'plus' | 'minus') => {
     if (selectType === 'plus') {
-      setCount(count + 1);
       setPeopleObj({ ...peopleObj, [peopleListitem.type]: count + 1 });
     } else {
-      setCount(count - 1);
       setPeopleObj({ ...peopleObj, [peopleListitem.type]: count - 1 });
     }
   }

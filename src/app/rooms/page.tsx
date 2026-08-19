@@ -1,5 +1,7 @@
+import { redirect } from 'next/navigation';
+
 const Rooms = () => {
-  return <div>Rooms</div>;
+  redirect('/');
 };
 
 export default Rooms;

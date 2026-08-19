@@ -7,12 +7,15 @@ import { cn } from '@/lib/utils';
 interface PeopleModalProps {
   isOpenPeople: boolean;
   setIsOpenPeople: (isOpen: boolean) => void;
+  // 沒有傳入時由 modal 自己管理人數
+  peopleObj?: PeopleObj;
+  setPeopleObj?: (peopleObj: PeopleObj) => void;
 }
 
 export interface PeopleList {
   title: string;
   description: string;
-  type: string;
+  type: keyof PeopleObj;
 }
 
 const peopleList: PeopleList[] = [
@@ -39,12 +42,19 @@ export interface PeopleObj {
   baby: number;
 }
 
-const PeopleModal = ({ isOpenPeople, setIsOpenPeople }: PeopleModalProps) => {
-  const [peopleObj, setPeopleObj] = useState<PeopleObj>({
+const PeopleModal = ({
+  isOpenPeople,
+  setIsOpenPeople,
+  peopleObj,
+  setPeopleObj,
+}: PeopleModalProps) => {
+  const [innerPeopleObj, setInnerPeopleObj] = useState<PeopleObj>({
     adult: 0,
     child: 0,
     baby: 0,
   });
+  const currentPeopleObj = peopleObj ?? innerPeopleObj;
+  const handlePeopleObj = setPeopleObj ?? setInnerPeopleObj;
 
   return (
     <>
@@ -62,8 +72,8 @@ const PeopleModal = ({ isOpenPeople, setIsOpenPeople }: PeopleModalProps) => {
                 })}
                 key={item.type}
                 peopleListitem={item}
-                setPeopleObj={setPeopleObj}
-                peopleObj={peopleObj}
+                setPeopleObj={handlePeopleObj}
+                peopleObj={currentPeopleObj}
               />
             ))}
           </div>

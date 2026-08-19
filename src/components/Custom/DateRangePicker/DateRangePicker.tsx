@@ -11,7 +11,7 @@ import {
 import { zhTW } from 'date-fns/locale'
 import { useState, useEffect } from "react";
 
-const formatters = {
+export const formatters = {
   formatCaption: (date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -19,7 +19,7 @@ const formatters = {
   }
 };
 
-const customLocale = {
+export const customLocale = {
   ...zhTW,
   options: {
     ...zhTW.options,
@@ -88,7 +88,7 @@ const DateRangePicker = ({ isOpen, setIsOpen, type="start", date, setDate }: Dat
         <PopoverTrigger asChild>
           <div></div>
         </PopoverTrigger>
-        <PopoverContent className="w-[--radix-popover-trigger-width] p-0 rounded-4xl" align="start" sideOffset={5}>
+        <PopoverContent className="min-w-[--radix-popover-trigger-width] p-0 rounded-4xl" align="start" sideOffset={5}>
           <div className="overflow-x-auto">
             <Calendar
               initialFocus

@@ -1,25 +1,13 @@
 import React from 'react';
 import PictureContainer from './PictureContainer';
 import BaseCotainer from '@/components/Custom/BaseCotainer/BaseCotainer';
+import { rooms } from '@/lib/constant/rooms';
 
-export interface Picture {
-  id: string;
-  author: string;
-  width: number;
-  height: number;
-  url: string;
-  download_url: string;
-}
-const PictureList = async () => {
-  const res = await fetch('https://picsum.photos/v2/list', {
-    cache: 'no-store',
-  });
-  const pictures: Picture[] = await res.json();
-
+const PictureList = () => {
   return (
     <BaseCotainer>
       <div className="w-full py-4">
-        <PictureContainer pictures={pictures} />
+        <PictureContainer rooms={rooms} />
       </div>
     </BaseCotainer>
   );
