@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 
 export interface Room {
-  id: string;
+  id: number;
   title: string;
   location: string;
   address: string;
@@ -87,7 +87,7 @@ export const ROOM_SECTION = {
 
 export const rooms: Room[] = [
   {
-    id: 'jeju-ocean-house',
+    id: 1,
     title: '面海第一排的濟州石屋，看得到日出',
     location: '南韓Gujwa-eup, Cheju',
     address: '南韓 濟州特別自治道 舊左邑',
@@ -105,7 +105,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'taipei-daan-loft',
+    id: 2,
     title: '大安森林公園旁的採光挑高小宅',
     location: '台北市大安區',
     address: '台灣 台北市 大安區',
@@ -123,7 +123,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'yilan-jiaoxi-onsen',
+    id: 3,
     title: '礁溪湯屋別墅，房內就有溫泉池',
     location: '宜蘭縣礁溪鄉',
     address: '台灣 宜蘭縣 礁溪鄉',
@@ -141,7 +141,7 @@ export const rooms: Room[] = [
     baths: 2,
   },
   {
-    id: 'hualien-cliff-villa',
+    id: 4,
     title: '花蓮海崖上的無邊際泳池villa',
     location: '花蓮縣豐濱鄉',
     address: '台灣 花蓮縣 豐濱鄉',
@@ -159,7 +159,7 @@ export const rooms: Room[] = [
     baths: 3,
   },
   {
-    id: 'kyoto-machiya',
+    id: 5,
     title: '祇園百年町家，走路五分鐘到八坂神社',
     location: '日本京都市東山區',
     address: '日本 京都府 京都市東山區',
@@ -177,7 +177,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'osaka-namba-flat',
+    id: 6,
     title: '難波站走路三分鐘，逛街吃飯都方便',
     location: '日本大阪市中央區',
     address: '日本 大阪府 大阪市中央區',
@@ -195,7 +195,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'sapporo-snow-cabin',
+    id: 7,
     title: '札幌雪國木屋，冬天推開門就是雪景',
     location: '日本札幌市南區',
     address: '日本 北海道 札幌市南區',
@@ -213,7 +213,7 @@ export const rooms: Room[] = [
     baths: 2,
   },
   {
-    id: 'okinawa-beach-house',
+    id: 8,
     title: '恩納村海邊平房，走路到沙灘只要一分鐘',
     location: '日本沖繩縣恩納村',
     address: '日本 沖繩縣 國頭郡恩納村',
@@ -231,7 +231,7 @@ export const rooms: Room[] = [
     baths: 2,
   },
   {
-    id: 'tainan-old-town',
+    id: 9,
     title: '台南老屋改建，一開窗就是紅磚巷弄',
     location: '台南市中西區',
     address: '台灣 台南市 中西區',
@@ -249,7 +249,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'kenting-surf-hostel',
+    id: 10,
     title: '墾丁衝浪民宿，板子借你不加價',
     location: '屏東縣恆春鎮',
     address: '台灣 屏東縣 恆春鎮',
@@ -267,7 +267,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'taichung-art-apartment',
+    id: 11,
     title: '審計新村旁的藝術公寓，滿屋子老件',
     location: '台中市西區',
     address: '台灣 台中市 西區',
@@ -285,7 +285,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'nantou-cingjing-cottage',
+    id: 12,
     title: '清境雲海鄉村小屋，早上有羊在門口',
     location: '南投縣仁愛鄉',
     address: '台灣 南投縣 仁愛鄉',
@@ -303,7 +303,7 @@ export const rooms: Room[] = [
     baths: 2,
   },
   {
-    id: 'hsinchu-hakka-yard',
+    id: 13,
     title: '北埔客家三合院，前庭有大棵老樹',
     location: '新竹縣北埔鄉',
     address: '台灣 新竹縣 北埔鄉',
@@ -321,7 +321,7 @@ export const rooms: Room[] = [
     baths: 2,
   },
   {
-    id: 'penghu-island-suite',
+    id: 14,
     title: '馬公港邊白色套房，看得到跨海大橋',
     location: '澎湖縣馬公市',
     address: '台灣 澎湖縣 馬公市',
@@ -339,7 +339,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'busan-haeundae-view',
+    id: 15,
     title: '海雲台高樓層海景房，夜景整片攤在窗前',
     location: '南韓釜山海雲台區',
     address: '南韓 釜山廣域市 海雲台區',
@@ -357,7 +357,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'seoul-hongdae-studio',
+    id: 16,
     title: '弘大巷弄裡的小套房，出門就是咖啡廳',
     location: '南韓首爾麻浦區',
     address: '南韓 首爾特別市 麻浦區',
@@ -375,7 +375,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'chiangmai-jungle-villa',
+    id: 17,
     title: '清邁叢林泳池villa，四周只有蟲鳴',
     location: '泰國清邁市',
     address: '泰國 清邁府 清邁市',
@@ -393,7 +393,7 @@ export const rooms: Room[] = [
     baths: 3,
   },
   {
-    id: 'bangkok-riverside',
+    id: 18,
     title: '昭披耶河畔公寓，陽台看得到夜船',
     location: '泰國曼谷市',
     address: '泰國 曼谷市 邦拉區',
@@ -411,7 +411,7 @@ export const rooms: Room[] = [
     baths: 2,
   },
   {
-    id: 'bali-ubud-treehouse',
+    id: 19,
     title: '烏布梯田樹屋，早餐送到房間陽台',
     location: '印尼峇里島烏布',
     address: '印尼 峇里省 吉安雅縣烏布',
@@ -429,7 +429,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'singapore-marina-flat',
+    id: 20,
     title: '濱海灣正對面，跨年煙火不用出門看',
     location: '新加坡濱海灣',
     address: '新加坡 濱海灣',
@@ -447,7 +447,7 @@ export const rooms: Room[] = [
     baths: 2,
   },
   {
-    id: 'hongkong-central-nest',
+    id: 21,
     title: '中環半山小宅，麻雀雖小但收納滿分',
     location: '香港中環',
     address: '中國香港特別行政區 中西區',
@@ -465,7 +465,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'danang-beach-loft',
+    id: 22,
     title: '峴港美溪海灘挑高樓中樓',
     location: '越南峴港市',
     address: '越南 峴港市 山茶郡',
@@ -483,7 +483,7 @@ export const rooms: Room[] = [
     baths: 2,
   },
   {
-    id: 'taitung-rift-valley',
+    id: 23,
     title: '鹿野縱谷玻璃屋，晚上躺著看銀河',
     location: '台東縣鹿野鄉',
     address: '台灣 台東縣 鹿野鄉',
@@ -501,7 +501,7 @@ export const rooms: Room[] = [
     baths: 1,
   },
   {
-    id: 'alishan-tea-house',
+    id: 24,
     title: '阿里山茶園裡的檜木老屋，清晨有雲海',
     location: '嘉義縣阿里山鄉',
     address: '台灣 嘉義縣 阿里山鄉',
@@ -797,7 +797,8 @@ const rotate = <T,>(list: T[], offset: number) => {
   return [...list.slice(start), ...list.slice(0, start)];
 };
 
-export const getRoomById = (id: string) => rooms.find((room) => room.id === id);
+/** 網址參數永遠是字串，這裡轉成數字再比對 */
+export const getRoomById = (id: string) => rooms.find((room) => room.id === Number(id));
 
 export const getRoomDetail = (room: Room) => {
   const index = Math.max(

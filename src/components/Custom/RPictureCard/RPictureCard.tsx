@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardTitle,
   CardContent,
-  CardDescription,
 } from '@/components/ui/card';
 import { Room } from '@/lib/constant/rooms';
 import Image from 'next/image';
@@ -57,6 +56,7 @@ const RPictureCard = ({ room }: RPictureCardProps) => {
           <CardHeader className="px-0">
             <CardTitle className="relative">
               <div className="w-full">
+                {/* 輪播圖片 */}
                 <Carousel className="w-full" setApi={setApi} opts={{duration: 20}}>
                   <CarouselContent isRounded>
                     {room.images.map((item, index) => (
@@ -99,6 +99,7 @@ const RPictureCard = ({ room }: RPictureCardProps) => {
               <RDotNavgation selectedIndex={selectedIndex} length={room.images.length} />
             </CardTitle>
           </CardHeader>
+          {/* 位置/評分 */}
           <CardContent>
             <div className="flex justify-between">
               <p className="text-sm max-w-44 truncate">{room.location}</p>
@@ -108,12 +109,7 @@ const RPictureCard = ({ room }: RPictureCardProps) => {
               </span>
             </div>
           </CardContent>
-          <CardDescription>
-            <p className="text-sm">{room.distance}</p>
-          </CardDescription>
-          <CardDescription>
-            <p className="text-sm">{room.dateRange}</p>
-          </CardDescription>
+          {/* 價格 */}
           <CardContent>
             <p className="text-sm font-bold">{formatPrice(room.price)} TWD 晚</p>
           </CardContent>
