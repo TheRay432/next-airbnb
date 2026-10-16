@@ -9,6 +9,7 @@ import { DateRange } from 'react-day-picker';
 import { format } from 'date-fns';
 import { zhTW } from 'date-fns/locale';
 import PeopleModal from "@/components/Custom/Modal/PeopleModal/PeopleModal";
+import LocationModal from '@/components/Custom/Modal/LocationModal/LocationModal';
 
 interface SearchbarProps {
   isTop: boolean;
@@ -19,6 +20,8 @@ const Searchbar = ({ isTop, setIsTop }: SearchbarProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenPeople, setIsOpenPeople] = useState(false);
+  const [isOpenLocation, setIsOpenLocation] = useState(false);
+  const [location, setLocation] = useState('');
   const [selectType, setSelectType] = useState<'start' | 'end'>('start');
   const [showContent, setShowContent] = useState(false);
   const [date, setDate] = React.useState<DateRange | undefined>({
@@ -61,6 +64,7 @@ const Searchbar = ({ isTop, setIsTop }: SearchbarProps) => {
     } else {
       setIsOpen(false);
       setIsOpenPeople(false);
+      setIsOpenLocation(false);
       setShowContent(false);
     }
   }, [isTop]);
@@ -83,9 +87,16 @@ const Searchbar = ({ isTop, setIsTop }: SearchbarProps) => {
               className="py-2 px-8 flex flex-col w-4/12 h-full rounded-full hover:bg-hovergray hover:cursor-pointer"
               onMouseEnter={() => setHoveredIndex(0)}
               onMouseLeave={() => setHoveredIndex(null)}
+              onClick={() => setIsOpenLocation(true)}
             >
               <span className="text-xs">地點</span>
-              <Input className="pl-0" placeholder="搜尋目的地" isNoBorder />
+              <Input
+                className="pl-0"
+                placeholder="搜尋目的地"
+                isNoBorder
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
             </div>
             {/* 入住 */}
             <div
@@ -169,6 +180,11 @@ const Searchbar = ({ isTop, setIsTop }: SearchbarProps) => {
         type={selectType}
         date={date}
         setDate={setDate}
+      />
+      <LocationModal
+        isOpenLocation={isOpenLocation}
+        setIsOpenLocation={setIsOpenLocation}
+        onSelect={setLocation}
       />
       <PeopleModal isOpenPeople={isOpenPeople} setIsOpenPeople={setIsOpenPeople} />
     </div>
