@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { BedSingle, CircleUserRound, Menu } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import Searchbar from '../Searchbar/Searchbar';
 import { cn } from "@/lib/utils";
 import { debounce } from 'lodash';
@@ -47,7 +47,10 @@ const Navbar = () => {
             <h1 className="font-bold">Testbnb</h1>
           </div>
           {/* 搜尋引擎 */}
-          <Searchbar isTop={isTop} setIsTop={setIsTop} />
+          {/* Searchbar 讀網址參數，靜態頁需包 Suspense 才能 build */}
+          <Suspense>
+            <Searchbar isTop={isTop} setIsTop={setIsTop} />
+          </Suspense>
           {/* 使用者資訊 */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

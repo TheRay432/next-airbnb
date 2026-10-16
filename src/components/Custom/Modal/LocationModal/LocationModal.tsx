@@ -11,6 +11,7 @@ interface LocationModalProps {
 }
 
 export interface LocationItem {
+  id: string;
   title: string;
   description: string;
 }
@@ -40,7 +41,7 @@ const LocationModal = ({
         <div className="custom-scrollbar max-h-[420px] overflow-y-auto pr-2">
           {locationList.map((item) => (
             <div
-              key={item.title}
+              key={item.id}
               className="flex items-center gap-4 px-4 py-2 rounded-xl hover:bg-hovergray cursor-pointer"
               onClick={() => handleSelect(item.title)}
             >

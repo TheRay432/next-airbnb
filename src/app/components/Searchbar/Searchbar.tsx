@@ -8,8 +8,11 @@ import DateRangePicker from '@/components/Custom/DateRangePicker/DateRangePicker
 import { DateRange } from 'react-day-picker';
 import { format } from 'date-fns';
 import { zhTW } from 'date-fns/locale';
-import PeopleModal from "@/components/Custom/Modal/PeopleModal/PeopleModal";
+import PeopleModal, { PeopleObj } from "@/components/Custom/Modal/PeopleModal/PeopleModal";
 import LocationModal from '@/components/Custom/Modal/LocationModal/LocationModal';
+import { useRouter } from 'next/navigation';
+import { buildSearchQuery, useStayParams } from '@/lib/hooks/useStayParams';
+import { locationList } from '@/lib/constant/location';
 
 interface SearchbarProps {
   isTop: boolean;
@@ -17,17 +20,24 @@ interface SearchbarProps {
 }
 
 const Searchbar = ({ isTop, setIsTop }: SearchbarProps) => {
+  const router = useRouter();
+  // 搜尋條件以網址為初始值，送出前只在搜尋列內暫存
+  const stayParams = useStayParams();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenPeople, setIsOpenPeople] = useState(false);
   const [isOpenLocation, setIsOpenLocation] = useState(false);
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState(
+    () => locationList.find((item) => item.id === stayParams.placeId)?.title ?? ''
+  );
   const [selectType, setSelectType] = useState<'start' | 'end'>('start');
   const [showContent, setShowContent] = useState(false);
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: undefined,
-    to: undefined,
-  });
+  const [date, setDate] = useState<DateRange | undefined>(
+    stayParams.date ?? { from: undefined, to: undefined }
+  );
+  const [peopleObj, setPeopleObj] = useState<PeopleObj>(
+    stayParams.hasPeople ? stayParams.peopleObj : { adult: 0, child: 0, baby: 0 }
+  );
   const searchItemClass =
     'py-2 px-4 flex flex-col w-2/12 h-full rounded-full relative before:absolute before:-left-1 before:top-1/2 before:-translate-y-1/2 before:h-8 before:border-lightgray hover:bg-hovergray hover:cursor-pointer';
   const getIsHaveBorder = (itemIndex: number) => {
@@ -52,6 +62,23 @@ const Searchbar = ({ isTop, setIsTop }: SearchbarProps) => {
 
   const handleOpenPeople = () => {
     setIsOpenPeople(true);
+  }
+
+  const guestCount = peopleObj.adult + peopleObj.child;
+  const peopleText = [
+    guestCount > 0 && `${guestCount} 位旅客`,
+    peopleObj.baby > 0 && `${peopleObj.baby} 位嬰幼兒`,
+  ]
+    .filter(Boolean)
+    .join(', ');
+
+  const handleSearch = (e: React.MouseEvent) => {
+    // 避免冒泡到旅客欄位又把人數彈窗打開
+    e.stopPropagation();
+    const placeId = locationList.find((item) => item.title === location)?.id;
+    const query = buildSearchQuery({ placeId, date, peopleObj });
+    setIsOpenPeople(false);
+    router.push(query ? `/?${query}` : '/');
   }
 
   useEffect(() => {
@@ -148,11 +175,15 @@ const Searchbar = ({ isTop, setIsTop }: SearchbarProps) => {
             >
               <div className="w-7/12 flex flex-col">
                 <span className="text-xs">旅客</span>
-                <span className="text-sm text-muted-foreground py-1">
-                  新增人數
+                <span
+                  className={cn('text-sm text-muted-foreground py-1 truncate', {
+                    'text-black font-bold': peopleText,
+                  })}
+                >
+                  {peopleText || '新增人數'}
                 </span>
               </div>
-              <SearchBarIcon isTop={isTop} />
+              <SearchBarIcon isTop={isTop} onClick={handleSearch} />
             </div>
           </>
         )}
@@ -186,7 +217,12 @@ const Searchbar = ({ isTop, setIsTop }: SearchbarProps) => {
         setIsOpenLocation={setIsOpenLocation}
         onSelect={setLocation}
       />
-      <PeopleModal isOpenPeople={isOpenPeople} setIsOpenPeople={setIsOpenPeople} />
+      <PeopleModal
+        isOpenPeople={isOpenPeople}
+        setIsOpenPeople={setIsOpenPeople}
+        peopleObj={peopleObj}
+        setPeopleObj={setPeopleObj}
+      />
     </div>
   );
 };

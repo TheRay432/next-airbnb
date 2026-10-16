@@ -7,17 +7,37 @@ import {
   differenceInCalendarDays,
   format,
   isValid,
-  parseISO,
+  parse,
   startOfDay,
 } from 'date-fns';
 import { PeopleObj } from '@/components/Custom/Modal/PeopleModal/PeopleModal';
 
-const DATE_FORMAT = 'yyyy-MM-dd';
+const DATE_FORMAT = 'yyyyMMdd';
 
 const parseDate = (value: string | null) => {
-  if (!value) return undefined;
-  const parsed = parseISO(value);
+  if (!value || !/^\d{8}$/.test(value)) return undefined;
+  const parsed = parse(value, DATE_FORMAT, new Date());
   return isValid(parsed) ? startOfDay(parsed) : undefined;
+};
+
+interface SearchQuery {
+  placeId?: string;
+  date?: DateRange;
+  peopleObj: PeopleObj;
+}
+
+/** 搜尋列送出用，沒填的條件不帶 */
+export const buildSearchQuery = ({ placeId, date, peopleObj }: SearchQuery) => {
+  const params = new URLSearchParams();
+  if (placeId) params.set('place_id', placeId);
+  if (date?.from) params.set('checkin', format(date.from, DATE_FORMAT));
+  if (date?.to) params.set('checkout', format(date.to, DATE_FORMAT));
+  if (peopleObj.adult + peopleObj.child + peopleObj.baby > 0) {
+    params.set('adults', String(peopleObj.adult));
+    params.set('children', String(peopleObj.child));
+    params.set('infants', String(peopleObj.baby));
+  }
+  return params.toString();
 };
 
 const parseCount = (value: string | null, fallback: number) => {
@@ -36,9 +56,9 @@ export const useStayParams = () => {
   const searchParams = useSearchParams();
 
   const date = useMemo<DateRange | undefined>(() => {
-    const from = parseDate(searchParams.get('checkIn'));
+    const from = parseDate(searchParams.get('checkin'));
     if (!from) return undefined;
-    return { from, to: parseDate(searchParams.get('checkOut')) };
+    return { from, to: parseDate(searchParams.get('checkout')) };
   }, [searchParams]);
 
   const peopleObj = useMemo<PeopleObj>(
@@ -64,10 +84,10 @@ export const useStayParams = () => {
   const setDate = useCallback(
     (next: DateRange | undefined) => {
       const params = new URLSearchParams(searchParams.toString());
-      if (next?.from) params.set('checkIn', format(next.from, DATE_FORMAT));
-      else params.delete('checkIn');
-      if (next?.to) params.set('checkOut', format(next.to, DATE_FORMAT));
-      else params.delete('checkOut');
+      if (next?.from) params.set('checkin', format(next.from, DATE_FORMAT));
+      else params.delete('checkin');
+      if (next?.to) params.set('checkout', format(next.to, DATE_FORMAT));
+      else params.delete('checkout');
       commit(params);
     },
     [commit, searchParams],
@@ -84,5 +104,9 @@ export const useStayParams = () => {
     [commit, searchParams],
   );
 
-  return { date, setDate, peopleObj, setPeopleObj };
+  const placeId = searchParams.get('place_id') ?? undefined;
+  // 網址沒帶人數時，搜尋列顯示「新增人數」而不是預設的 1 位成人
+  const hasPeople = searchParams.has('adults');
+
+  return { date, setDate, peopleObj, setPeopleObj, placeId, hasPeople };
 };
