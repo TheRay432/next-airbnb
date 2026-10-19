@@ -118,11 +118,12 @@ const Searchbar = ({ isTop, setIsTop }: SearchbarProps) => {
             >
               <span className="text-xs">地點</span>
               <Input
-                className="pl-0"
+                className="pl-0 cursor-pointer"
                 placeholder="搜尋目的地"
                 isNoBorder
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
+                readOnly
               />
             </div>
             {/* 入住 */}
