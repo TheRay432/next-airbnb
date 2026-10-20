@@ -3,22 +3,9 @@
 import { useCallback, useMemo } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { DateRange } from 'react-day-picker';
-import {
-  differenceInCalendarDays,
-  format,
-  isValid,
-  parse,
-  startOfDay,
-} from 'date-fns';
+import { differenceInCalendarDays, format } from 'date-fns';
 import { PeopleObj } from '@/components/Custom/Modal/PeopleModal/PeopleModal';
-
-const DATE_FORMAT = 'yyyyMMdd';
-
-const parseDate = (value: string | null) => {
-  if (!value || !/^\d{8}$/.test(value)) return undefined;
-  const parsed = parse(value, DATE_FORMAT, new Date());
-  return isValid(parsed) ? startOfDay(parsed) : undefined;
-};
+import { DATE_FORMAT, parseDate } from '@/lib/stayParams';
 
 interface SearchQuery {
   placeId?: string;

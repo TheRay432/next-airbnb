@@ -3,6 +3,8 @@ import Navbar from '@/app/components/Navbar/Navbar';
 import Footer from '@/app/components/Footer/Footer';
 import BaseCotainer from '@/components/Custom/BaseCotainer/BaseCotainer';
 import { getRoomById, getRoomDetail, ROOM_SECTION } from '@/lib/constant/rooms';
+import { isValidStayParams } from '@/lib/stayParams';
+import RNotFound from '@/components/Custom/RNotFound/RNotFound';
 import RoomHeader from './components/RoomHeader';
 import RoomGallery from './components/RoomGallery';
 import RoomSummary from './components/RoomSummary';
@@ -16,13 +18,19 @@ import RoomNav from './components/RoomNav';
 
 interface RoomDetailProps {
   params: { id: string };
+  searchParams: Record<string, string | string[] | undefined>;
 }
 
-const RoomDetail = ({ params }: RoomDetailProps) => {
+const RoomDetail = ({ params, searchParams }: RoomDetailProps) => {
   const room = getRoomById(params.id);
 
   if (!room) {
     notFound();
+  }
+
+  // 參數錯誤直接渲染 404 內容，原因同首頁
+  if (!isValidStayParams(searchParams)) {
+    return <RNotFound />;
   }
 
   const detail = getRoomDetail(room);
