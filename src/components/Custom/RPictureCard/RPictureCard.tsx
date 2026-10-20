@@ -9,6 +9,7 @@ import {
 import { Room } from '@/lib/constant/rooms';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Heart, Star } from 'lucide-react';
 import { BLUR_DATA_URL, cn, formatPrice } from '@/lib/utils';
 import {
@@ -30,6 +31,8 @@ const RPictureCard = ({ room }: RPictureCardProps) => {
   const [showCarouselBtn, setShowCarouselBtn] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
+  // 把首頁的搜尋條件帶進商品頁，入住日期與人數才不會遺失
+  const query = useSearchParams().toString();
 
   const handleFavorite = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.preventDefault();
@@ -47,7 +50,7 @@ const RPictureCard = ({ room }: RPictureCardProps) => {
   }, [api]);
   return (
     <>
-      <Link href={`/rooms/${room.id}`} target="_blank" rel="noopener noreferrer">
+      <Link href={query ? `/rooms/${room.id}?${query}` : `/rooms/${room.id}`} target="_blank" rel="noopener noreferrer">
         <Card
           className={cn('border-none shadow-none cursor-pointer')}
           onMouseEnter={() => setShowCarouselBtn(true)}
