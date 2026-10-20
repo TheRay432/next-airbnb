@@ -40,6 +40,10 @@ const Footer = () => {
           </div>
         </div>
       </FooterContainer>
+      <div className="w-full h-[1px] bg-gray-200"></div>
+      <FooterContainer>
+        <p className="text-sm">© {new Date().getFullYear()} testbnb</p>
+      </FooterContainer>
     </footer>
   );
 };
