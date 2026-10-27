@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "Testbnb",
   description: "Testbnb 是以 Next.js 打造的 Airbnb 風格訂房網站，可依地點瀏覽各地房源與住宿資訊。",
   verification: {
-    google: "i0oWD-nz3YCKBCl1Ko1VrULPuDM5ONkj3Ynm1uDubEo",
+    google: "mgv6-RZCbxRT-4C7_sdT17SK8JT2Qksm4tLVnwcJJ5s",
   },
 };
 
