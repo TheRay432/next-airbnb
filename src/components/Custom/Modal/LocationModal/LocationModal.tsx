@@ -1,25 +1,21 @@
 'use client';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { locationList } from '@/lib/constant/location';
 import { MapPin } from 'lucide-react';
 import React from 'react';
+import { LocationItem } from '@/types/location';
 
 interface LocationModalProps {
   isOpenLocation: boolean;
   setIsOpenLocation: (isOpen: boolean) => void;
   onSelect: (title: string) => void;
-}
-
-export interface LocationItem {
-  id: string;
-  title: string;
-  description: string;
+  locationList: LocationItem[];
 }
 
 const LocationModal = ({
   isOpenLocation,
   setIsOpenLocation,
   onSelect,
+  locationList,
 }: LocationModalProps) => {
   const handleSelect = (title: string) => {
     onSelect(title);

@@ -6,10 +6,10 @@ import { Button } from '@/components/ui/button';
 import BaseCotainer from '@/components/Custom/BaseCotainer/BaseCotainer';
 import {
   CLEANING_FEE,
-  Room,
   ROOM_SECTION,
   SERVICE_FEE,
 } from '@/lib/constant/rooms';
+import { Room } from '@/types/room';
 import { cn, formatPrice } from '@/lib/utils';
 import { getNights, useStayParams } from '@/lib/hooks/useStayParams';
 

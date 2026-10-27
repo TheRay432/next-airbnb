@@ -6,12 +6,12 @@ import RPictureCard from '@/components/Custom/RPictureCard/RPictureCard';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import RPictureCardSkeleton from '@/components/Custom/RPictureCardSkeleton/RPictureCardSkeleton';
 import REmptyState from '@/components/Custom/REmptyState/REmptyState';
-import { Room } from '@/lib/constant/rooms';
+import { RoomListItem } from '@/types/room';
 
 const PAGE_SIZE = 18;
 
 interface PictureContainerProps {
-  rooms: Room[];
+  rooms: RoomListItem[];
 }
 const PictureContainer = ({ rooms }: PictureContainerProps) => {
   const [loadedCount, setLoadedCount] = useState(PAGE_SIZE);

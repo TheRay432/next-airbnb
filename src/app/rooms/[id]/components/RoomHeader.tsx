@@ -1,7 +1,7 @@
 import React from 'react';
 import { Heart, Share, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Room } from '@/lib/constant/rooms';
+import { Room } from '@/types/room';
 
 interface RoomHeaderProps {
   room: Room;

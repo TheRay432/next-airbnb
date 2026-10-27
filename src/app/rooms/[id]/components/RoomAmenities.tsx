@@ -1,5 +1,10 @@
 import React from 'react';
-import { RoomAmenity } from '@/lib/constant/rooms';
+import { type LucideIcon } from 'lucide-react';
+
+export interface RoomAmenity {
+  icon: LucideIcon;
+  label: string;
+}
 
 interface RoomAmenitiesProps {
   amenities: RoomAmenity[];

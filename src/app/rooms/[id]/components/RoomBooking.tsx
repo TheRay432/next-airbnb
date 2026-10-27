@@ -9,10 +9,10 @@ import DateRangePicker from '@/components/Custom/DateRangePicker/DateRangePicker
 import PeopleModal from '@/components/Custom/Modal/PeopleModal/PeopleModal';
 import {
   CLEANING_FEE,
-  Room,
   ROOM_SECTION,
   SERVICE_FEE,
 } from '@/lib/constant/rooms';
+import { Room } from '@/types/room';
 import { formatPrice } from '@/lib/utils';
 import { getNights, useStayParams } from '@/lib/hooks/useStayParams';
 

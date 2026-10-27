@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Medal } from 'lucide-react';
-import { RoomHost as RoomHostType } from '@/lib/constant/rooms';
+import { RoomHost as RoomHostType } from '@/types/room';
 import { BLUR_DATA_URL } from '@/lib/utils';
 
 interface RoomHostProps {

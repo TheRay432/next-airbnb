@@ -1,15 +1,10 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import Navbar from '@/app/components/Navbar/Navbar';
 import Footer from '@/app/components/Footer/Footer';
 
 const RNotFound = () => {
   return (
     <>
-      <div className="sticky top-0 bg-white z-10 shadow-md">
-        <Navbar />
-        <div className="w-full h-[1px] bg-gray-200"></div>
-      </div>
       <div className="w-full min-h-[70vh] flex flex-col items-center justify-center gap-6 px-4 py-16">
         <svg
           width="240"

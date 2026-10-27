@@ -1,5 +1,6 @@
 import React from 'react';
-import { highlights, Room, RoomHost } from '@/lib/constant/rooms';
+import { highlights } from '@/lib/constant/rooms';
+import { Room, RoomHost } from '@/types/room';
 
 interface RoomSummaryProps {
   room: Room;

@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { RoomReview } from '@/lib/constant/rooms';
+import { RoomReview } from '@/types/room';
 import ReviewCard from './ReviewCard';
 
 const PAGE_SIZE = 8;

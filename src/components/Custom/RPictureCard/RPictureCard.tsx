@@ -6,7 +6,7 @@ import {
   CardTitle,
   CardContent,
 } from '@/components/ui/card';
-import { Room } from '@/lib/constant/rooms';
+import { RoomListItem } from '@/types/room';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -24,7 +24,7 @@ import RDotNavgation from "../RDotNavgation/RDotNavgation";
 import { Button } from "@/components/ui/button";
 
 export interface RPictureCardProps {
-  room: Room;
+  room: RoomListItem;
 }
 const RPictureCard = ({ room }: RPictureCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);

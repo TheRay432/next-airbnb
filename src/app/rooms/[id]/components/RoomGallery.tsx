@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { BLUR_DATA_URL, cn } from '@/lib/utils';
-import { Room } from '@/lib/constant/rooms';
+import { Room } from '@/types/room';
 import {
   Carousel,
   CarouselApi,

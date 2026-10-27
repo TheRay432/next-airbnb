@@ -10,13 +10,14 @@ import { format } from 'date-fns';
 import { zhTW } from 'date-fns/locale';
 import PeopleModal, { PeopleObj } from "@/components/Custom/Modal/PeopleModal/PeopleModal";
 import LocationModal from '@/components/Custom/Modal/LocationModal/LocationModal';
+import { LocationItem } from '@/types/location';
 import { useRouter } from 'next/navigation';
 import { buildSearchQuery, useStayParams } from '@/lib/hooks/useStayParams';
-import { locationList } from '@/lib/constant/location';
 
 interface SearchbarProps {
   isTop: boolean;
   setIsTop: (isTop: boolean) => void;
+  locationList: LocationItem[];
 }
 
 // 兩層常駐 DOM，只用 transform + opacity 交叉切換（不動寬高、不重新掛載），動畫交給 GPU 才會順
@@ -24,7 +25,7 @@ interface SearchbarProps {
 const layerTransition =
   '[transition:transform_300ms_cubic-bezier(0.2,0,0,1),opacity_200ms_ease,visibility_300ms]';
 
-const Searchbar = ({ isTop, setIsTop }: SearchbarProps) => {
+const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
   const router = useRouter();
   // 搜尋條件以網址為初始值，送出前只在搜尋列內暫存
   const stayParams = useStayParams();
@@ -235,6 +236,7 @@ const Searchbar = ({ isTop, setIsTop }: SearchbarProps) => {
           isOpenLocation={isOpenLocation}
           setIsOpenLocation={setIsOpenLocation}
           onSelect={setLocation}
+          locationList={locationList}
         />
         <PeopleModal
           isOpenPeople={isOpenPeople}

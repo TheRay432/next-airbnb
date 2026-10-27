@@ -14,8 +14,13 @@ import Searchbar from '../Searchbar/Searchbar';
 import { cn } from "@/lib/utils";
 import { throttle } from 'lodash';
 import { useRouter } from 'next/navigation';
+import { LocationItem } from '@/types/location';
 
-const Navbar = () => {
+interface NavbarProps {
+  locationList: LocationItem[];
+}
+
+const Navbar = ({ locationList }: NavbarProps) => {
   const [isTop, setIsTop] = useState(true);
   const router = useRouter();
   const navRef = useRef<HTMLDivElement>(null);
@@ -61,7 +66,7 @@ const Navbar = () => {
           {/* 搜尋引擎 */}
           {/* Searchbar 讀網址參數，靜態頁需包 Suspense 才能 build */}
           <Suspense>
-            <Searchbar isTop={isTop} setIsTop={setIsTop} />
+            <Searchbar isTop={isTop} setIsTop={setIsTop} locationList={locationList} />
           </Suspense>
           {/* 使用者資訊 */}
           <DropdownMenu>

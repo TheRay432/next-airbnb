@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { RoomReview } from '@/lib/constant/rooms';
+import { RoomReview } from '@/types/room';
 import { BLUR_DATA_URL } from '@/lib/utils';
 
 interface ReviewCardProps {

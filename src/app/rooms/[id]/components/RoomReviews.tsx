@@ -1,6 +1,7 @@
 import React from 'react';
 import { Star } from 'lucide-react';
-import { REVIEW_PREVIEW_COUNT, Room, RoomReview } from '@/lib/constant/rooms';
+import { REVIEW_PREVIEW_COUNT } from '@/lib/constant/rooms';
+import { Room, RoomReview } from '@/types/room';
 import ReviewCard from './ReviewCard';
 import RoomReviewsModal from './RoomReviewsModal';
 
