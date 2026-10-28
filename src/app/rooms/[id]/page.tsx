@@ -19,6 +19,9 @@ import RoomReviews from './components/RoomReviews';
 import RoomBooking from './components/RoomBooking';
 import RoomNav from './components/RoomNav';
 
+// 後端在 Cloud Run 會縮到 0，冷啟動可能超過預設的 10 秒
+export const maxDuration = 60;
+
 interface RoomDetailProps {
   params: { id: string };
   searchParams: Record<string, string | string[] | undefined>;

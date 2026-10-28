@@ -7,6 +7,9 @@ import { isValidStayParams } from '@/lib/stayParams';
 import RNotFound from '@/components/Custom/RNotFound/RNotFound';
 import { LocationItem } from '@/types/location';
 
+// 後端在 Cloud Run 會縮到 0，冷啟動可能超過預設的 10 秒
+export const maxDuration = 60;
+
 interface HomeProps {
   searchParams: Record<string, string | string[] | undefined>;
 }
