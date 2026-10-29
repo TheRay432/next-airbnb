@@ -30,8 +30,6 @@ const LocationModal = ({
       <PopoverContent
         className="w-[425px] rounded-4xl p-6"
         align="start"
-        // 保留 input 的焦點，讓使用者可以繼續輸入
-        onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <p className="px-4 pb-2 text-xs">推薦目的地</p>
         <div className="custom-scrollbar max-h-[420px] overflow-y-auto pr-2">
