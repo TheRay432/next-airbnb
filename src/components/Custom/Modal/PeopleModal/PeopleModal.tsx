@@ -1,14 +1,13 @@
 'use client';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import React, { useState } from 'react';
+import React from 'react';
 import PeopleAddItem from './PeopleAddItem';
 
 interface PeopleModalProps {
   isOpenPeople: boolean;
   setIsOpenPeople: (isOpen: boolean) => void;
-  // 沒有傳入時由 modal 自己管理人數
-  peopleObj?: PeopleObj;
-  setPeopleObj?: (peopleObj: PeopleObj) => void;
+  peopleObj: PeopleObj;
+  setPeopleObj: (peopleObj: PeopleObj) => void;
 }
 
 export interface PeopleList {
@@ -47,14 +46,6 @@ const PeopleModal = ({
   peopleObj,
   setPeopleObj,
 }: PeopleModalProps) => {
-  const [innerPeopleObj, setInnerPeopleObj] = useState<PeopleObj>({
-    adult: 0,
-    child: 0,
-    baby: 0,
-  });
-  const currentPeopleObj = peopleObj ?? innerPeopleObj;
-  const handlePeopleObj = setPeopleObj ?? setInnerPeopleObj;
-
   return (
     <>
       <Popover open={isOpenPeople} onOpenChange={(open) => setIsOpenPeople(open)}>
@@ -68,8 +59,8 @@ const PeopleModal = ({
                 className="py-6 first:pt-0 last:pb-0"
                 key={item.type}
                 peopleListitem={item}
-                setPeopleObj={handlePeopleObj}
-                peopleObj={currentPeopleObj}
+                setPeopleObj={setPeopleObj}
+                peopleObj={peopleObj}
               />
             ))}
           </div>
