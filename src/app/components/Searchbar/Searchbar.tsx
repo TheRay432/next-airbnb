@@ -28,7 +28,6 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
   const router = useRouter();
   // 搜尋條件以網址為初始值，送出前只在搜尋列內暫存
   const stayParams = useStayParams();
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenPeople, setIsOpenPeople] = useState(false);
   const [isOpenLocation, setIsOpenLocation] = useState(false);
@@ -42,11 +41,7 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
   );
   const location = locationList.find((item) => item.id === placeId)?.title ?? '';
   const searchItemClass =
-    'py-2 px-4 flex flex-col w-2/12 h-full rounded-full relative before:absolute before:-left-1 before:top-1/2 before:-translate-y-1/2 before:h-8 before:border-lightgray hover:bg-hovergray hover:cursor-pointer';
-  
-  const getIsHaveBorder = (itemIndex: number) => {
-    return hoveredIndex !== itemIndex - 1 && hoveredIndex !== itemIndex;
-  };
+    'py-2 px-4 flex flex-col w-2/12 h-full rounded-full relative before:absolute before:-left-1 before:top-1/2 before:-translate-y-1/2 before:h-8 before:border-l before:border-lightgray hover:bg-hovergray hover:cursor-pointer hover:before:border-transparent [:hover+&]:before:border-transparent';
 
   const handleChooseDate = (type: 'start' | 'end') => {
     setSelectType(type);
@@ -119,8 +114,6 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
         {/* 地點 */}
         <div
           className="py-2 px-8 flex flex-col w-4/12 h-full rounded-full hover:bg-hovergray hover:cursor-pointer"
-          onMouseEnter={() => setHoveredIndex(0)}
-          onMouseLeave={() => setHoveredIndex(null)}
           onClick={() => setIsOpenLocation(true)}
         >
           <span className="text-xs">地點</span>
@@ -134,11 +127,7 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
         </div>
         {/* 入住 */}
         <div
-          className={cn(searchItemClass, {
-            'before:border-l': getIsHaveBorder(1),
-          })}
-          onMouseEnter={() => setHoveredIndex(1)}
-          onMouseLeave={() => setHoveredIndex(null)}
+          className={searchItemClass}
           onClick={() => handleChooseDate('start')}
         >
           <span className="text-xs">入住</span>
@@ -152,11 +141,7 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
         </div>
         {/* 退房 */}
         <div
-          className={cn(searchItemClass, {
-            'before:border-l': getIsHaveBorder(2),
-          })}
-          onMouseEnter={() => setHoveredIndex(2)}
-          onMouseLeave={() => setHoveredIndex(null)}
+          className={searchItemClass}
           onClick={() => handleChooseDate('end')}
         >
           <span className="text-xs">退房</span>
@@ -171,13 +156,8 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
         {/* 旅客 */}
         <div
           className={cn(
-            `${searchItemClass} w-4/12 flex-row justify-between items-center relative pr-2`,
-            {
-              'before:border-l': getIsHaveBorder(3),
-            }
+            `${searchItemClass} w-4/12 flex-row justify-between items-center relative pr-2`
           )}
-          onMouseEnter={() => setHoveredIndex(3)}
-          onMouseLeave={() => setHoveredIndex(null)}
           onClick={handleOpenPeople}
         >
           <div className="w-7/12 flex flex-col">
@@ -197,7 +177,7 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
       {/* 收合版：展開時放大到大搜尋列的尺寸並淡出 */}
       <div
         className={cn(
-          'absolute bottom-3 left-1/2 -translate-x-1/2 w-80 h-12 flex items-center bg-white border border-lightgray rounded-full shadow-md origin-center will-change-transform',
+          'absolute bottom-3 left-1/2 -translate-x-1/2 w-80 h-12 flex items-center bg-white border border-lightgray rounded-full shadow-md',
           layerTransition,
           {
             'opacity-0 invisible pointer-events-none scale-x-[2.65] scale-y-[1.33] translate-y-1': isTop,
