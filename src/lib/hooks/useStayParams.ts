@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { DateRange } from 'react-day-picker';
 import { differenceInCalendarDays, format } from 'date-fns';
@@ -42,12 +42,12 @@ export const useStayParams = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const date = useMemo<DateRange | undefined>(() => {
-    const from = parseDate(searchParams.get('checkin'));
-    if (!from) return undefined;
-    return { from, to: parseDate(searchParams.get('checkout')) };
-  }, [searchParams]);
+  const from = parseDate(searchParams.get('checkin'));
+  const date: DateRange | undefined = from
+    ? { from, to: parseDate(searchParams.get('checkout')) }
+    : undefined;
 
+  // RoomBooking 的 effect 依賴 peopleObj 的參照，每次 render 產生新物件會無限重設草稿
   const peopleObj = useMemo<PeopleObj>(
     () => ({
       adult: parseCount(searchParams.get('adults'), 1),
@@ -58,38 +58,29 @@ export const useStayParams = () => {
   );
 
   // 用 replace 不留歷史紀錄，避免上一頁被篩選條件灌爆
-  const commit = useCallback(
-    (next: URLSearchParams) => {
-      const query = next.toString();
-      router.replace(query ? `${pathname}?${query}` : pathname, {
-        scroll: false,
-      });
-    },
-    [pathname, router],
-  );
+  const commit = (next: URLSearchParams) => {
+    const query = next.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, {
+      scroll: false,
+    });
+  };
 
-  const setDate = useCallback(
-    (next: DateRange | undefined) => {
-      const params = new URLSearchParams(searchParams.toString());
-      if (next?.from) params.set('checkin', format(next.from, DATE_FORMAT));
-      else params.delete('checkin');
-      if (next?.to) params.set('checkout', format(next.to, DATE_FORMAT));
-      else params.delete('checkout');
-      commit(params);
-    },
-    [commit, searchParams],
-  );
+  const setDate = (next: DateRange | undefined) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (next?.from) params.set('checkin', format(next.from, DATE_FORMAT));
+    else params.delete('checkin');
+    if (next?.to) params.set('checkout', format(next.to, DATE_FORMAT));
+    else params.delete('checkout');
+    commit(params);
+  };
 
-  const setPeopleObj = useCallback(
-    (next: PeopleObj) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set('adults', String(next.adult));
-      params.set('children', String(next.child));
-      params.set('infants', String(next.baby));
-      commit(params);
-    },
-    [commit, searchParams],
-  );
+  const setPeopleObj = (next: PeopleObj) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('adults', String(next.adult));
+    params.set('children', String(next.child));
+    params.set('infants', String(next.baby));
+    commit(params);
+  };
 
   const placeId = searchParams.get('place_id') ?? undefined;
   // 網址沒帶人數時，搜尋列顯示「新增人數」而不是預設的 1 位成人
