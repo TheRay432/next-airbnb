@@ -2,7 +2,6 @@
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import React, { useState } from 'react';
 import PeopleAddItem from './PeopleAddItem';
-import { cn } from '@/lib/utils';
 
 interface PeopleModalProps {
   isOpenPeople: boolean;
@@ -63,13 +62,10 @@ const PeopleModal = ({
           <div></div>
         </PopoverTrigger>
         <PopoverContent className="w-96 rounded-4xl" align="end">
-          <div className="p-4">
+          <div className="p-4 divide-y divide-lightgray">
             {peopleList.map((item) => (
               <PeopleAddItem
-                className={cn('border-b border-lightgray py-6', {
-                  'border-b-0 pb-0': item === peopleList[peopleList.length - 1],
-                  'pt-0': item === peopleList[0],
-                })}
+                className="py-6 first:pt-0 last:pb-0"
                 key={item.type}
                 peopleListitem={item}
                 setPeopleObj={handlePeopleObj}
