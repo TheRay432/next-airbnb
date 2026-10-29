@@ -7,7 +7,7 @@ import { LocationItem } from '@/types/location';
 interface LocationModalProps {
   isOpenLocation: boolean;
   setIsOpenLocation: (isOpen: boolean) => void;
-  onSelect: (title: string) => void;
+  onSelect: (id: string) => void;
   locationList: LocationItem[];
 }
 
@@ -17,8 +17,8 @@ const LocationModal = ({
   onSelect,
   locationList,
 }: LocationModalProps) => {
-  const handleSelect = (title: string) => {
-    onSelect(title);
+  const handleSelect = (id: string) => {
+    onSelect(id);
     setIsOpenLocation(false);
   };
 
@@ -39,7 +39,7 @@ const LocationModal = ({
             <div
               key={item.id}
               className="flex items-center gap-4 px-4 py-2 rounded-xl hover:bg-hovergray cursor-pointer"
-              onClick={() => handleSelect(item.title)}
+              onClick={() => handleSelect(item.id)}
             >
               <div className="flex items-center justify-center w-14 h-14 shrink-0 rounded-xl bg-white border border-lightgray">
                 <MapPin className="w-6 h-6" />

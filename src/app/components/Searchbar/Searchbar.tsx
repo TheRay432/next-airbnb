@@ -20,7 +20,6 @@ interface SearchbarProps {
   locationList: LocationItem[];
 }
 
-// 兩層常駐 DOM，只用 transform + opacity 交叉切換（不動寬高、不重新掛載），動畫交給 GPU 才會順
 // transform 走較長的減速曲線，opacity 較短，讓被縮放的那層先淡掉，看不出文字變形
 const layerTransition =
   '[transition:transform_300ms_cubic-bezier(0.2,0,0,1),opacity_200ms_ease,visibility_300ms]';
@@ -33,9 +32,7 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenPeople, setIsOpenPeople] = useState(false);
   const [isOpenLocation, setIsOpenLocation] = useState(false);
-  const [location, setLocation] = useState(
-    () => locationList.find((item) => item.id === stayParams.placeId)?.title ?? ''
-  );
+  const [placeId, setPlaceId] = useState(stayParams.placeId);
   const [selectType, setSelectType] = useState<'start' | 'end'>('start');
   const [date, setDate] = useState<DateRange | undefined>(
     stayParams.date ?? { from: undefined, to: undefined }
@@ -43,8 +40,10 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
   const [peopleObj, setPeopleObj] = useState<PeopleObj>(
     stayParams.hasPeople ? stayParams.peopleObj : { adult: 0, child: 0, baby: 0 }
   );
+  const location = locationList.find((item) => item.id === placeId)?.title ?? '';
   const searchItemClass =
     'py-2 px-4 flex flex-col w-2/12 h-full rounded-full relative before:absolute before:-left-1 before:top-1/2 before:-translate-y-1/2 before:h-8 before:border-lightgray hover:bg-hovergray hover:cursor-pointer';
+  
   const getIsHaveBorder = (itemIndex: number) => {
     return hoveredIndex !== itemIndex - 1 && hoveredIndex !== itemIndex;
   };
@@ -91,7 +90,6 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
   const handleSearch = (e: React.MouseEvent) => {
     // 避免冒泡到旅客欄位又把人數彈窗打開
     e.stopPropagation();
-    const placeId = locationList.find((item) => item.title === location)?.id;
     const query = buildSearchQuery({ placeId, date, peopleObj });
     setIsOpenPeople(false);
     router.push(query ? `/?${query}` : '/');
@@ -110,7 +108,7 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
       {/* 展開版：收合時縮向小搜尋列的位置並淡出 */}
       <div
         className={cn(
-          'absolute inset-0 flex items-center bg-white border border-lightgray rounded-full shadow-md origin-center will-change-transform',
+          'absolute inset-0 flex items-center bg-white border border-lightgray rounded-full shadow-md',
           layerTransition,
           {
             'opacity-0 invisible pointer-events-none scale-x-[0.376] scale-y-75 -translate-y-1': !isTop,
@@ -131,7 +129,6 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
             placeholder="搜尋目的地"
             isNoBorder
             value={location}
-            onChange={(e) => setLocation(e.target.value)}
             readOnly
           />
         </div>
@@ -235,7 +232,7 @@ const Searchbar = ({ isTop, setIsTop, locationList }: SearchbarProps) => {
         <LocationModal
           isOpenLocation={isOpenLocation}
           setIsOpenLocation={setIsOpenLocation}
-          onSelect={setLocation}
+          onSelect={setPlaceId}
           locationList={locationList}
         />
         <PeopleModal

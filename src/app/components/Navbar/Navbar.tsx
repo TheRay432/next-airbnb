@@ -30,13 +30,13 @@ const Navbar = ({ locationList }: NavbarProps) => {
     router.push('/');
   }
 
+  // 監聽 scroll 事件，判斷 Navbar 是否在頂部
   useEffect(() => {
     lastHeightRef.current = navRef.current?.offsetHeight ?? 0;
 
     const handleScroll = () => {
       const height = navRef.current?.offsetHeight ?? 0;
       // Navbar 高度改變時瀏覽器會自動調整 scrollY，這種不是使用者滾動造成的 scroll 不處理
-      // 高度動畫 150ms，throttle 100ms 的每次呼叫都會讀到不同高度，動畫期間會一路略過
       if (height !== lastHeightRef.current) {
         lastHeightRef.current = height;
         return;
@@ -52,6 +52,7 @@ const Navbar = ({ locationList }: NavbarProps) => {
       window.removeEventListener('scroll', throttledScroll);
     };
   }, []);
+
   return (
     <BaseCotainer>
       <div ref={navRef} className={cn('h-44 xl:h-24 py-4 relative transition-all', {
