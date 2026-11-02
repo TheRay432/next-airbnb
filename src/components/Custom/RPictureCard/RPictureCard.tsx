@@ -58,7 +58,7 @@ const RPictureCard = ({ room }: RPictureCardProps) => {
         >
           <CardHeader className="px-0">
             <CardTitle className="relative">
-              <div className="w-full">
+              <div className="w-full aspect-[27/26] bg-gray-200 rounded-lg">
                 {/* 輪播圖片 */}
                 <Carousel className="w-full" setApi={setApi} opts={{duration: 20}}>
                   <CarouselContent isRounded>
