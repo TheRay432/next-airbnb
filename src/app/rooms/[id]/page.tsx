@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Navbar from '@/app/components/Navbar/Navbar';
 import Footer from '@/app/components/Footer/Footer';
@@ -26,6 +27,18 @@ interface RoomDetailProps {
   params: { id: string };
   searchParams: Record<string, string | string[] | undefined>;
 }
+
+// 與頁面打同一支 API、同樣的參數，Next 會合併成一次請求
+export const generateMetadata = async ({ params }: RoomDetailProps): Promise<Metadata> => {
+  if (!/^\d+$/.test(params.id)) return {};
+
+  const roomRes = await fetch(`${process.env.API_URL}/api/rooms/${params.id}`, { next: { revalidate: 3600 } });
+  // 錯誤交給頁面處理，這裡沿用 layout 的預設標題
+  if (!roomRes.ok) return {};
+
+  const room: Room = await roomRes.json();
+  return { title: room.title, description: room.description };
+};
 
 const RoomDetail = async ({ params, searchParams }: RoomDetailProps) => {
   // id 不是數字就不必打 API
