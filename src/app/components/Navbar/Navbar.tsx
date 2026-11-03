@@ -55,8 +55,9 @@ const Navbar = ({ locationList }: NavbarProps) => {
 
   return (
     <BaseCotainer>
-      <div ref={navRef} className={cn('h-44 xl:h-24 py-4 relative transition-all', {
-        'h-24': !isTop
+      {/* 手機版不顯示搜尋列，高度固定 */}
+      <div ref={navRef} className={cn('h-24 md:h-44 xl:h-24 py-4 relative transition-all', {
+        'md:h-24': !isTop
       })}>
         <div className="w-full flex items-center justify-between">
           {/* Logo */}
